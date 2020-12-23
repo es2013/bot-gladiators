@@ -28,8 +28,9 @@ var startGame = function() {
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
   
         var pickedEnemyName = enemyNames[i];
-  
-        enemyHealth = 50;
+  // start the enemy with health between 40 and 60
+       // enemyHealth = Math.floor(math.random() * 21) + 40;
+        enemyHealth = randomNum(40,60);
   
         fight(pickedEnemyName);
       }
@@ -73,13 +74,18 @@ var fight = function(enemyName) {
         // If skip TRUE
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye");
-            playerMoney = playerMoney - 10;
+            playerMoney = Math.max(0,playerMoney - 10);
             break;
         }
    } 
-   // remove enemys health
-   enemyHealth = enemyHealth - playerAttack;
-   console.log(playerName + ' attacked ' + enemyHealth + ". " + enemyName + " now has " + enemyHealth + " health points");
+        // remove enemys health
+       
+   //generate random damage value based on player's attack powers
+    var damage = randomNum(playerAttack - 3,playerAttack);
+    
+    enemyHealth = Math.max(0,enemyHealth - playerAttack);
+
+    console.log(playerName + ' attacked ' + enemyName + ". " + enemyName + " now has " + enemyHealth + " health points");
 
 
     //    Check Enemy's health
@@ -95,7 +101,8 @@ var fight = function(enemyName) {
    }
 
    // remove players's health by subtracting the amount set in the enemyAttack variable
-   playerHealth = playerHealth - enemyAttack;
+   var damage = randomNum(enemyAttack - 3, enemyAttack);
+   playerHealth = Math.max(0,playerHealth - enemyAttack);
    console.log(
      enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
    );
@@ -161,6 +168,14 @@ var shop = function() {
         break;
     }
   };
+
+  //function to generate a random numberic value
+  var randomNum = function(min,max){
+      var value = Math.floor(Math.random()*(max-min+1)+min);
+
+      return value;
+  };
+
 startGame();
 
 
