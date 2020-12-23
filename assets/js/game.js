@@ -16,83 +16,7 @@ var enemyHealth = 50;
 var enemyAttack = 12;
 var enemyNames = ["robocop", "deathdroid", "kyle"];
 
-var fight = function(enemyName) {
-    // repeat and execute as long as the enemy-robot is alive 
-  while (enemyHealth > 0 && playerHealth > 0) {
-    //   Ask whether to skip or fight
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP");
-    //if player chooses to skip, then nothing happens
-    if (promptFight === "skip"|| promptFight==="SKIP" ){
-        var confirmSkip = window.confirm("Are you sure you want to skip?");
-        // If skip TRUE
-        if (confirmSkip) {
-            window.alert(playerName + " has decided to skip this fight. Goodbye");
-            playerMoney = playerMoney - 10;
-            break;
-        }
-   } 
-   // remove enemys health
-   enemyHealth = enemyHealth - playerAttack;
-   console.log(playerName + ' attacked ' + enemyHealth + ". " + enemyName + " now has " + enemyHealth + " health points");
-
-
-//    Check Enemy's health
-
-   if (enemyHealth <= 0){
-       window.alert(enemyName + " has died!");
-
-    //    award money for destroying enemy
-        playerMoney = playerMoney + 20;
-        break;
-   } else {
-       window.alert (enemyName + " has " + enemyHealth + " health points");
-   }
-
-   // remove players's health by subtracting the amount set in the enemyAttack variable
-   playerHealth = playerHealth - enemyAttack;
-   console.log(
-     enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
-   );
-
-
-
-// check player's health
-if (playerHealth <= 0) {
-    window.alert(playerName + ' has died!');
-    // leave while() loop if player is dead
-    break;
-  } else {
-    window.alert(playerName + ' still has ' + playerHealth + ' health left.');
-  }
-}
-};
-
-// fight each enemy-robot by looping over them and fighting them one at a time
-for (var i = 0; i < enemyNames.length; i++) {
-// if player is still alive, keep fighting
-if (playerHealth > 0) {
-  // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
-  window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
-
-  // pick new enemy to fight based on the index of the enemyNames array
-  var pickedEnemyName = enemyNames[i];
-
-  // reset enemyHealth before starting new fight
-  // enemyHealth = 50;
-
-  // use debugger to pause script from running and check what's going on at that moment in the code
-  debugger;
-
-  // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-  fight(pickedEnemyName);
-}
-// if player isn't alive, stop the game
-else {
-  window.alert('You have lost your robot in battle! Game Over!');
-}
-}
-
-// start new game function
+//start a new game
 var startGame = function() {
     //reset player stats
     playerHealth = 100;
@@ -120,8 +44,7 @@ var startGame = function() {
     endGame();
   };
 
-
-//function to end the entire game
+  //function to end the entire game
 var endGame = function(){
     if (playerHealth > 0) {
         window.alert("Great job, you've survived the game! you have a score of" + playerMoney+ ".");
@@ -138,7 +61,89 @@ var endGame = function(){
     }
 };
 
+// fight function
+var fight = function(enemyName) {
+    // repeat and execute as long as the enemy-robot is alive 
+  while (enemyHealth > 0 && playerHealth > 0) {
+    //   Ask whether to skip or fight
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP");
+    //if player chooses to skip, then nothing happens
+    if (promptFight === "skip"|| promptFight==="SKIP" ){
+        var confirmSkip = window.confirm("Are you sure you want to skip?");
+        // If skip TRUE
+        if (confirmSkip) {
+            window.alert(playerName + " has decided to skip this fight. Goodbye");
+            playerMoney = playerMoney - 10;
+            break;
+        }
+   } 
+   // remove enemys health
+   enemyHealth = enemyHealth - playerAttack;
+   console.log(playerName + ' attacked ' + enemyHealth + ". " + enemyName + " now has " + enemyHealth + " health points");
 
+
+    //    Check Enemy's health
+
+   if (enemyHealth <= 0){
+       window.alert(enemyName + " has died!");
+
+    //    award money for destroying enemy
+        playerMoney = playerMoney + 20;
+        break;
+   } else {
+       window.alert (enemyName + " has " + enemyHealth + " health points");
+   }
+
+   // remove players's health by subtracting the amount set in the enemyAttack variable
+   playerHealth = playerHealth - enemyAttack;
+   console.log(
+     enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
+   );
+
+
+
+    // check player's health
+    if (playerHealth <= 0) {
+        window.alert(playerName + ' has died!');
+    // leave while() loop if player is dead
+        break;
+    } else {
+    window.alert(playerName + ' still has ' + playerHealth + ' health left.');
+    }
+}
+};
+
+var shop = function() {
+    // ask player what they'd like to do
+    var shopOptionPrompt = window.prompt(
+      'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one "REFILL", "UPGRADE", or "LEAVE" to make a choice.'
+    );
+  
+    // use switch case to carry out action
+    switch (shopOptionPrompt) {
+      case 'refill':
+      case 'REFILL':
+        window.alert("Refilling player's health by 20 for 7 dollars.");
+        playerHealth += 20;
+        playerMoney -= 7;
+        break;
+      case 'upgrade':
+      case 'UPGRADE':
+        window.alert("Upgrading player's attack by 6 for 7 dollars.");
+        playerAttack += 6;
+        playerMoney -= 7;
+        break;
+      case 'leave':
+      case 'LEAVE':
+        window.alert('Leaving the store.');
+        break;
+      default:
+        window.alert('You did not pick a valid option. Try again.');
+        shop();
+        break;
+    }
+  };
+startGame();
 
 
 //Note the lack of quotations marks around playerName
