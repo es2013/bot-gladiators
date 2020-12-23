@@ -61,6 +61,7 @@ var endGame = function() {
     }
   };
 
+  
 // fight function (now with parameter for enemy's object holding name, health, and attack values)
 var fight = function(enemy) {
     // keep track of who goes first
