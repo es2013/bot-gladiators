@@ -120,8 +120,6 @@ var startGame = function() {
     endGame();
   };
 
-// Call the startGame function to start a new game
-startGame();
 
 //function to end the entire game
 var endGame = function(){
